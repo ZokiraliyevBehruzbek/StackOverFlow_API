@@ -20,7 +20,13 @@ class UserSerializer(serializers.ModelSerializer):
             "password",
             "is_superuser",
         ]
-
+# class PointAdd(serializers.Serializer):
+#     class Meta:
+#         model = User
+#         fields = [
+#             "ball",
+#             "status",
+#         ]
 
 # class PostSerializer(serializers.ModelSerializer):
 #     class Meta:

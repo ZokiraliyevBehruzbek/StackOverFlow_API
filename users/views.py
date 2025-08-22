@@ -64,35 +64,7 @@ class GetMyDetails(RetrieveAPIView):
     def get_object(self):
         return self.request.user
     
-# class CreatePost(CreateAPIView):
-#     queryset = Post.objects.all()
-#     serializer_class = PostSerializers
-#     permission_classes = [IsAuthenticated]  # Faqat login bo‘lgan user qo‘sha oladi
 
-#     def perform_create(self, serializer):
-#         serializer.save(owner=self.request.user)  # JWT token orqali userni avtomatik qo‘shadi
-# class CreatePost(CreateAPIView):
-#     queryset = Post.objects.all()
-#     serializer_class = PostSerializer
-#     permission_classes = [IsAuthenticated]  # faqat login bo‘lgan user yaratadi
-
-#     def perform_create(self, serializer):
-#         serializer.save(owner=self.request.user)  # owner avtomatik qo‘shiladi
-
-
-# class ListPosts(ListAPIView):
-#     queryset = Post.objects.all()
-#     serializer_class = PostSerializer
-#     permission_classes = [IsAuthenticated]
-
-# class MyPosts(ListAPIView):
-#     serializer_class = PostSerializer
-#     permission_classes = [IsAuthenticated]
-
-#     def get_queryset(self):
-#         return Post.objects.filter(owner=self.request.user)
-    
-# # Ichida savol qosha olish kerak +
-# # Savolga javob yoza olishi kerak  
-# # har bir berilgan javob ichida comment ham bolishi kerak
-# # savol bergan odam hohlagan javobini foydali deb topishi mumkin, checkbox bosib quyiladigan holatda
+# ball qoshish userga
+# status reject yoki accept reject berganda -1 ball 
+# agar userni bali <= 0 bolsa foydalanuvchiga ban beradi

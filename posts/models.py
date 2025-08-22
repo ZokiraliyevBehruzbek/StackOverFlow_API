@@ -43,10 +43,10 @@ class Comment(models.Model):
 
 class GetMyPostAnswers(models.Model):
     answer_id = models.ForeignKey(Answer,on_delete=models.CASCADE,related_name="answers_id")
-    checkbox = models.BooleanField(default=False)
+    checkbox = models.BooleanField(default=False, null=False)
 
     def __str__(self):
-        return self.checkbox
+        return self.answer_id
     
     class Meta:
         db_table = "like"
