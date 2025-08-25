@@ -9,7 +9,7 @@ from posts.models import Post
 class UserAdmin(admin.ModelAdmin):
     list_display = ("id", "username", "email", "ball", "ban", "is_active")
     search_fields = ('email', 'first_name', 'last_name')
-
-
+    
+    
 
 

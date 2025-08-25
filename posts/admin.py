@@ -24,4 +24,4 @@ class CommentAdmin(admin.ModelAdmin):
 
 @admin.register(GetMyPostAnswers)
 class GetMyPostAnswersAdmin(admin.ModelAdmin):
-    list_display = ("answer_id", "checkbox")
+    list_display = ("answer_id", "checkbox", "owner")

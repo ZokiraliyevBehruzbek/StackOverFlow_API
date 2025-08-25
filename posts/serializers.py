@@ -23,8 +23,9 @@ class CommentSerializers(serializers.ModelSerializer):
         fields = ["id", "answer_id","content", "owner", "created_at"]
         read_only_fields = ["id", "owner","created_at"]
 
-class MyPostSerializers(serializers.Serializer):
+class MyPostSerializers(serializers.ModelSerializer):
     class Meta:
         model = GetMyPostAnswers
         fields= ["id", "answer_id", "checkbox", "owner", "created_at"]
         read_only_fields = ["id", "owner","created_at"]
+    

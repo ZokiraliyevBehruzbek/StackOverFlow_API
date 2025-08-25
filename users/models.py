@@ -18,37 +18,33 @@ class User(AbstractUser):
     status = models.CharField(
         max_length=10,
         choices=STATUS_CHOICES,
-        default="None"
+        default="none"
     )
     ban = models.BooleanField(default=False)
     
     def save(self, *args, **kwargs):
-        # Eski qiymatni olish uchun obyektni DB’dan qaytadan olib kelamiz
+        # faqat update bo‘lsa eski statusni tekshirish
         if self.pk:  
             old = User.objects.get(pk=self.pk)
-            if old.status != self.status:  # faqat status o‘zgarganda ballni yangilash
+            if old.status != self.status:
                 if self.status == "accept":
-                    self.ball = self.ball + 1
+                    self.ball += 1
                 elif self.status == "reject":
-                    self.ball = self.ball - 1
+                    self.ball -= 1
         else:
-            # yangi yaratilganda statusga qarab ball qo‘yish
+            # yangi user yaratilganda
             if self.status == "accept":
                 self.ball = 1
             elif self.status == "reject":
                 self.ball = -1
 
-        super().save(*args, **kwargs)
+        # ban qo‘yish qismi
+        if self.ball <= -1:
+            self.ban = True
+        else:
+            self.ban = False
 
-        def save(self, *args, **kwargs):
-                # Agar ball -1 yoki undan kichik bo‘lsa, ban qilib qo‘yadi
-                if self.ball <= -1:
-                    self.ban = True
-                else:
-                    self.ban = False
-
-                super().save(*args, **kwargs)
-    
+        super().save(*args, **kwargs)    
 
     def __str__(self):
         return str(self.username)
