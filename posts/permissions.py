@@ -8,9 +8,9 @@ class IsPostOwnerToLike(permissions.BasePermission):
 
     def has_permission(self, request, view):
         # Faqat authenticated userlar uchun
-        return request.user and request.user.is_authenticated
+        # return request.user and request.user.is_authenticated
 
-    def has_object_permission(self, request, view, obj):
+    # def has_object_permission(self, request, view, obj):
         post_id = request.data.get("post_id")
         answer_id = request.data.get("answer_id")
 
