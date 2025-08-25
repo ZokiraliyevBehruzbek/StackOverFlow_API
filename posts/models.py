@@ -1,6 +1,5 @@
 
 from django.db import models
-from django.utils import timezone
 from users.models import User
 
 class Post(models.Model):
@@ -52,23 +51,35 @@ class Comment(models.Model):
 #     class Meta:
 #         db_table = "like"
 
-class GetMyPostAnswers(models.Model):
-    # post_id = models.ForeignKey(Post,on_delete=models.CASCADE, related_name="posts_id")
-    answer_id = models.ForeignKey(
-        Answer,
-        on_delete=models.CASCADE,
-        related_name="answers_id"
-    )
-    checkbox = models.BooleanField(default=False)
-    owner = models.ForeignKey(
-        User,  # sening user modelinga qarab to‘g‘rila
-        on_delete=models.CASCADE,
-        related_name="answer_likes"
-    )
-    created_at = models.DateTimeField(auto_now_add=True)
+# class GetMyPostAnswers(models.Model):
+#     post_id = models.ForeignKey(Post,on_delete=models.CASCADE, related_name="posts_id")
+#     answer_id = models.ForeignKey(
+#         Answer,
+#         on_delete=models.CASCADE,
+#         related_name="answers_id"
+#     )
+#     checkbox = models.BooleanField(default=False)
+#     owner = models.ForeignKey(
+#         User,  # sening user modelinga qarab to‘g‘rila
+#         on_delete=models.CASCADE,
+#         related_name="answer_likes"
+#     )
+#     created_at = models.DateTimeField(auto_now_add=True)
 
-    def __str__(self):
-        return f"{self.answer_id} -> {self.checkbox}"
+#     def __str__(self):
+#         return f"{self.answer_id} -> {self.checkbox}"
+
+#     class Meta:
+#         db_table = "likes"
+class Like(models.Model):
+    post_id = models.ForeignKey(Post, on_delete=models.CASCADE, related_name="likes")
+    answer_id = models.ForeignKey(Answer, on_delete=models.CASCADE, related_name="likes")
+    user = models.ForeignKey(User, on_delete=models.CASCADE, related_name="likes")
+    checkbox = models.BooleanField(default=False)
 
     class Meta:
-        db_table = "likes"
+        db_table = "like"
+        unique_together = ("answer_id", "user")  
+
+    def __str__(self):
+        return f"{self.user} liked {self.answer_id}"

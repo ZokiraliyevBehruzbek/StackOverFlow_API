@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Post, Answer, Comment, GetMyPostAnswers
+from .models import Post, Answer, Comment, Like
 
 class AnswerInline(admin.TabularInline):
     model = Answer
@@ -22,6 +22,6 @@ class AnswerAdmin(admin.ModelAdmin):
 class CommentAdmin(admin.ModelAdmin):
     list_display = ("id","answer_id",  "content","owner", "created_at")
 
-@admin.register(GetMyPostAnswers)
-class GetMyPostAnswersAdmin(admin.ModelAdmin):
-    list_display = ("answer_id", "checkbox", "owner")
+@admin.register(Like)
+class LikeAdmin(admin.ModelAdmin):
+    list_display = ("post_id","answer_id","user","checkbox")

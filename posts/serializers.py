@@ -1,7 +1,7 @@
 from rest_framework import serializers
 # from django.db import models
 
-from posts.models import Post,Answer,Comment,GetMyPostAnswers
+from posts.models import Post,Answer,Comment,Like
 
 
 class PostSerializer(serializers.ModelSerializer):
@@ -23,9 +23,23 @@ class CommentSerializers(serializers.ModelSerializer):
         fields = ["id", "answer_id","content", "owner", "created_at"]
         read_only_fields = ["id", "owner","created_at"]
 
-class MyPostSerializers(serializers.ModelSerializer):
-    class Meta:
-        model = GetMyPostAnswers
-        fields= ["id", "answer_id", "checkbox", "owner", "created_at"]
-        read_only_fields = ["id", "owner","created_at"]
+# class MyPostSerializers(serializers.ModelSerializer):
+#     class Meta:
+#         model = GetMyPostAnswers
+#         fields= ["id","post_id", "answer_id", "checkbox", "owner", "created_at"]
+#         read_only_fields = ["id", "owner","created_at"]
     
+class LikeSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Like
+        fields = ["post_id", "answer_id", "checkbox"]
+
+    def validate(self, attrs):
+        post_id = attrs["post_id"]
+        answer_id = attrs["answer_id"]
+
+        # Javob shu postga tegishliligini tekshirish
+        if answer_id.post_id != post_id:
+            raise serializers.ValidationError("Answer bu postga tegishli emas.")
+
+        return attrs
